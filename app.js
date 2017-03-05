@@ -1,5 +1,5 @@
 /* Enhance is a Higher Order Component which takes WrappedComponent as an arg and returns another Component which toggles data every 3 seconds*/
-const Enhance = WrappedComponent => class extends React.Component {
+const Enhance = WrappedComponent => class Enhanced extends React.Component {
     constructor() {
         super()
         this.state = {
@@ -39,6 +39,7 @@ class SimpleComponent extends React.Component {
 }
 
 const EnhancedComponent = Enhance(SimpleComponent) // Can be exported using an export 
+console.dir(EnhancedComponent)
 
 ReactDOM.render(
     <EnhancedComponent outerProp={"I am a prop passed after getting enhanced"}/>, document.getElementById('root'))
