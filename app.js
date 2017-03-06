@@ -1,22 +1,24 @@
 /* Enhance is a Higher Order Component which takes WrappedComponent as an arg and returns another Component which toggles data every 3 seconds*/
 const Enhance = WrappedComponent => class  extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
-            data: null
+            data: null,
+            buttonData: null
         }
     }
     componentDidMount() {
         this.timerId = setInterval(() => this.setState({
             data: this.state.data
                 ? null
-                : "Hello React"
+                : "Hello React",
+            buttonData: this.state.buttonData?null: "Hello React Button"
         }), 3000)
     }
     render() {
         return (<WrappedComponent
             {...this.props}
-            data={this.state.data}
+            data={this.state[props.dataType]}
             normalProp={"I am a prop passed just like any other prop"}/>)
     }
 
@@ -49,5 +51,5 @@ const EnhancedSimpleComponent = Enhance(SimpleComponent) // Can be exported usin
 const EnhancedButtonComponent = Enhance(ButtonComponent)
 
 ReactDOM.render(
-    <div><EnhancedSimpleComponent
-    outerProp={"I am a prop passed after getting enhanced"}/><EnhancedButtonComponent/></div>, document.getElementById('root'))
+    <div><EnhancedSimpleComponent dataType = {'data'}
+    outerProp={"I am a prop passed after getting enhanced"}/><EnhancedButtonComponent dataType = {'buttonData'}/></div>, document.getElementById('root'))
